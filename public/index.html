@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Real-Time Online User App</title>
+        <script src="/socket.io/socket.io.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body>
+    <div>
+        <h2>User list</h2>
+        <div class="list-group user-active-list"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="//cdn.rawgit.com/placemarker/jQuery-MD5/master/jquery.md5.js"></script>
+    <script>
+        $(document).ready(function(){
+            var socket = io();
+            
+            socket.emit('add_user', prompt("What's your name?"));
+
+            socket.on('online_user', function(name){
+                console.log('online_user', name)
+                if($(`#user_${ name }`).length == 0) {
+                    $(`.user-active-list`).append(`<button id="user_${ name }" type="button" class="user-active list-group-item list-group-item-action list-group-item-success"> ${ name } </button>`)
+                }else{
+                    $(`#user_${ name }`).addClass(`list-group-item-success`)
+                }
+            });
+            socket.on('offline_user', function(name){
+                console.log('offline_user', name)
+                $(`#user_${ name }`).removeClass(`list-group-item-success`)
+            });
+        });
+
+    </script>
+
+    </body>
+</html>

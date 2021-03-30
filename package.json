@@ -1,0 +1,18 @@
+{
+  "name": "real-time-user-app",
+  "version": "1.0.0",
+  "description": "Simple app built with Node.js and Socket.io",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aliff Azmi",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
